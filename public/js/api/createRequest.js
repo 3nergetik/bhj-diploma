@@ -2,18 +2,17 @@
  * Основная функция для совершения запросов
  * на сервер.
  * */
-
  const createRequest = (options = {}) => {
     if (options.data && options.data.addUrl) {
         options.url += options.data.addUrl;
-    };
+    }
 
     const xhr = new XMLHttpRequest();
     xhr.responseType = 'json';
-    
+
     try {
         xhr.open(options.method, options.url);
-        
+            
         if (options.data && options.data.id)  {
             const form = new FormData();
             form.append('id', options.data.id);
@@ -21,9 +20,9 @@
         } else {
             xhr.send(options.data);
         }
-     } catch (e) {
+    } catch (e) {
         options.callback(new Error(e.message), null);
-     }
+        }
 
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4) {
@@ -34,4 +33,4 @@
             }
         }
     }
- };
+}
